@@ -16,6 +16,7 @@ namespace Tenteikura
         private IList<ILinkFilter> _linkFilters = new List<ILinkFilter>();
         private bool _followExternalLinks;
         private FetcherQueue _queue;
+
         //The crawler takes a cache as parameter. The cache can be 
         //either empty (starting url never crawled) or already full 
         //with pages previously crawled - this is determined by the
@@ -32,6 +33,11 @@ namespace Tenteikura
             };
             _cache = cache;
             _followExternalLinks = followExternalLinks;
+        }
+
+        public Crawler(Cache cache)
+            : this(cache, false)
+        {
         }
 
         public void Crawl(Uri url)

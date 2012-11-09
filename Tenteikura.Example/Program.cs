@@ -36,6 +36,7 @@ namespace Tenteikura.Example
                     Console.WriteLine(page.Title + " - " + page.Uri.AbsoluteUri);
                     persister.Save(page);
                 };
+                //starts the crawler, on a different thread
                 crawler.Crawl(startingUri);
                 Console.WriteLine("Crawler started, press CTRL+C to interrupt");
                 while (true) { }
