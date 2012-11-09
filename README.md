@@ -14,14 +14,14 @@ and a target directory to be instantiated.
     Cache cache            = new Cache(startingURL, targetDirectory);
     Crawler crawler        = new Crawler(cache);
     crawler.Crawl(startingURL); //starts the crawler at http://www.andreadallera.com
-
+```
 <tt>Crawler</tt>'s constructor takes an optional parameter (bool, default <tt>false</tt>) which, if <tt>true</tt>, instructs the 
 crawler to fetch pages outside the starting URI's domain or not:
 ```csharp
     new Crawler(cache, true);  //will follow urls outside the starting URI's domain
     new Crawler(cache, false); //will fetch only pages inside the starting URI's domain
     new Crawler(cache);        //same as above
-
+```
 This will only keep the downloaded pages in the <tt>Cache</tt> object, which is an
 <tt>IEnumerable<Page></tt>:
 ```csharp
@@ -37,7 +37,7 @@ This will only keep the downloaded pages in the <tt>Cache</tt> object, which is 
             Console.WriteLine(link.AbsoluteUri);
         }
     }
-
+```
 <tt>Crawler</tt> exposes two events - <tt>NewPageFetched</tt> and <tt>WorkComplete</tt>:
 ```csharp
     //fired when a valid page not in cache is downloaded    
@@ -48,7 +48,7 @@ This will only keep the downloaded pages in the <tt>Cache</tt> object, which is 
     crawler.WorkComplete += () {
         //shut down the application, or forward to the GUI, or whatever
     };
-
+```
 If you want to persist the fetched pages, a very rudimental file system 
 backed storage option is available, via the <tt>Persister</tt> class:
 ```csharp
@@ -56,7 +56,7 @@ backed storage option is available, via the <tt>Persister</tt> class:
     crawler.NewPageFetched += (page) {
         persister.save(page);
     };
-
+```
 <tt>Persister</tt> will save the page, in a subdirectory of <tt>targetDirectory</tt>
 named after <tt>startingURL.Authority</tt>, as two files: one file, with filename <tt>page.Hash + ".link"</tt>, 
 contains the page's absolute URI and the other, with filename <tt>page.Hash</tt>, 
