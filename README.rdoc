@@ -22,7 +22,7 @@ IEnumerable<Page>:
     {
         Console.WriteLine(page.Title);  //page title
         Console.WriteLine(page.HTML);   //page full HTML
-	    Console.WriteLine(page.Uri);    //page URI object
+        Console.WriteLine(page.Uri);    //page URI object
         Console.WriteLine(page.Hash);   //an hash of the URI's AbsoluteUri
         foreach(Uri link in page.Links) 
         {
