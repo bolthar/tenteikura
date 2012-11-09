@@ -10,9 +10,9 @@ takes a Cache instance as a parameter, which in turn requires a starting URL
 and a target directory to be instantiated.
 
     String targetDirectory = @"C:\tenteikura_cache";ù
-    Uri	startingURL = new Uri("http://www.andreadallera.com");
-	Cache cache = new Cache(startingURL, targetDirectory);
-	Crawler crawler = new Crawler(cache);
+    Uri startingURL        = new Uri("http://www.andreadallera.com");
+	Cache cache            = new Cache(startingURL, targetDirectory);
+	Crawler crawler        = new Crawler(cache);
 	crawler.Crawl(startingURL); //starts the crawler at http://www.andreadallera.com
 
 There is an example console application on Tenteikura.Example.
