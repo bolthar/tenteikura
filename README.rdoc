@@ -15,6 +15,13 @@ and a target directory to be instantiated.
     Crawler crawler        = new Crawler(cache);
     crawler.Crawl(startingURL); //starts the crawler at http://www.andreadallera.com
 
+Crawler's constructor takes an optional parameter (bool, default false) which, if true, instructs the 
+crawler to fetch pages outside the starting URI's domain or not:
+
+    new Crawler(cache, true);  //will follow urls outside the starting URI's domain
+    new Crawler(cache, false); //will fetch only pages inside the starting URI's domain
+    new Crawler(cache);        //same as above
+
 This will only keep the downloaded pages in the Cache object, which is an
 IEnumerable<Page>:
 
@@ -31,5 +38,40 @@ IEnumerable<Page>:
         }
     }
 
+The crawler exposes two events:
+
+    //fired when a valid page not in cache is downloaded    
+    crawler.NewPageFetched += (page) {
+        //do something with the fetched page
+    };
+    //fired when the crawler has no more pages left to fetch
+    crawler.WorkComplete += () {
+        //shut down the application, or forward to the GUI, or whatever
+    };
+
+If you want to persist the fetched pages, a very rudimental file system 
+backed storage option is available, via the Persister class:
+
+    Persister persister = new Persister(targetDirectory, startingURL);
+    crawler.NewPageFetched += (page) {
+        persister.save(page);
+    };
+
+The persister will save the page, in a subdirectory of targetDirectory 
+named after startingURL.Authority, as two files: one file, with filename page.Hash + ".link", 
+contains the page's absolute URI and the other, with filename page.Hash, 
+contains the page itself in full.
+
 There is an example console application on Tenteikura.Example.
 
+== TO DO
+
+There's an hard dependency between Cache and Persister at the moment: Cache expects 
+pages from the targetDirectory + startingUri path to be in the same format as the 
+ones saved from Persister, while the loading strategy should be injected (and ideally 
+provided by Persister itself).
+
+The persister should use a more effective storage strategy - maybe backed by a 
+RDMS or a documental storage.
+
+The pages are fetched in random order, so there is no traversal priority strategy of any kind.
