@@ -38,7 +38,7 @@ IEnumerable<Page>:
         }
     }
 
-The crawler exposes two events - `NewPageFetched` and `WorkComplete`:
+The crawler exposes two events - ```NewPageFetched``` and ```WorkComplete```:
 
     //fired when a valid page not in cache is downloaded    
     crawler.NewPageFetched += (page) {
