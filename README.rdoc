@@ -1,5 +1,4 @@
-Tenteikura
-==========
+# Tenteikura
 
-A minimal C# multithreaded web crawler
---------------------------------------
+### A minimal C# multithreaded web crawler
+
