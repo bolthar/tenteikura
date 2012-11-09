@@ -1,14 +1,14 @@
-= Tenteikura
+# Tenteikura
 
 A minimal C# multithreaded web crawler
 
-== Usage
+## Usage
 
 From an user's point of view, what is needed to start the crawler is
 a call to the <tt>#crawl</tt> method on a <tt>Crawler</tt> instance. <tt>Crawler</tt>'s constructor 
 takes a <tt>Cache</tt> instance as a parameter, which in turn requires a starting URL 
 and a target directory to be instantiated.
-
+```C-sharp
     String targetDirectory = @"C:\tenteikura_cache";
     Uri startingURL        = new Uri("http://www.andreadallera.com");
     Cache cache            = new Cache(startingURL, targetDirectory);
@@ -64,7 +64,7 @@ contains the page itself in full.
 
 There is an example console application on Tenteikura.Example.
 
-== TO DO
+## TO DO
 
 There's an hard dependency between <tt>Cache</tt> and <tt>Persister</tt> at the moment: <tt>Cache</tt> expects 
 pages from the <tt>targetDirectory + startingUri.Authority</tt> path to be in the same format as the 
