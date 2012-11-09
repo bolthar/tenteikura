@@ -15,7 +15,7 @@ and a target directory to be instantiated.
     Crawler crawler        = new Crawler(cache);
     crawler.Crawl(startingURL); //starts the crawler at http://www.andreadallera.com
 
-<tt>Crawler's constructor takes an optional parameter (<tt>bool</tt>, default <tt>false</tt>) which, if true, instructs the 
+<tt>Crawler</tt>'s constructor takes an optional parameter (<tt>bool</tt>, default <tt>false</tt>) which, if true, instructs the 
 crawler to fetch pages outside the starting URI's domain or not:
 
     new Crawler(cache, true);  //will follow urls outside the starting URI's domain
