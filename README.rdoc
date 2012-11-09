@@ -15,5 +15,22 @@ and a target directory to be instantiated.
     Crawler crawler        = new Crawler(cache);
     crawler.Crawl(startingURL); //starts the crawler at http://www.andreadallera.com
 
+This will only keep the downloaded pages in the Cache object, which is an
+IEnumerable<Page>:
+
+    foreach(Page page in cache) 
+	{
+	    Console.WriteLine(page.Title);  //page title
+		Console.WriteLine(page.HTML);   //page full HTML
+		Console.WriteLine(page.Uri);    //page URI object
+		Console.WriteLine(page.Hash);   //an hash of the URI's AbsoluteUri
+		foreach(Uri link in page.Links) 
+		{
+		    //the page has a IEnumerable<Uri> which contains all the links found on the page itself
+		    Console.WriteLine(link.AbsoluteUri);
+		}
+	}
+
+
 There is an example console application on Tenteikura.Example.
 

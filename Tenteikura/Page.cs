@@ -9,13 +9,13 @@ namespace Tenteikura
 {
     public class Page
     {
-        public HtmlDocument Body { get; private set; }
+        public HtmlDocument Document { get; private set; }
         public Uri Uri { get; private set; }
         public String Hash { get; private set; }
 
         public Page(String document, Uri uri)
         {
-            Body = new HtmlDocument();
+            Document = new HtmlDocument();
             //gets an MD5 Hash of the downloaded document's absolute URI,
             //which will then used for persistence
             Hash = BitConverter.ToString(
@@ -23,18 +23,25 @@ namespace Tenteikura
                         Encoding.UTF8.GetBytes(uri.AbsoluteUri)
                         )
                     ).Replace("-", "");
-            Body.LoadHtml(document);
+            Document.LoadHtml(document);
             Uri = uri;
         }
 
-
+        public String HTML
+        {
+            get
+            {
+                return Document.DocumentNode.InnerHtml;
+            }
+        }
+        
         public String Title
         {
             //Various guards are needed, the document could be in an invalid state.
             get
             {
-                if (Body.DocumentNode == null) return String.Empty;
-                var titleSelector = Body.DocumentNode.SelectNodes("//title");
+                if (Document.DocumentNode == null) return String.Empty;
+                var titleSelector = Document.DocumentNode.SelectNodes("//title");
                 if (titleSelector == null) return String.Empty;
                 var titleNode = titleSelector.FirstOrDefault();
                 return titleNode != null ? titleNode.InnerText : String.Empty;
@@ -48,7 +55,7 @@ namespace Tenteikura
             get
             {
                 //Get all <a> tags on the page
-                var linkNodes = Body.DocumentNode.SelectNodes("//a");
+                var linkNodes = Document.DocumentNode.SelectNodes("//a");
                 if (linkNodes == null) return new List<Uri>();
                 return linkNodes
                     //Extract the "href" attribute from all the tags, 
