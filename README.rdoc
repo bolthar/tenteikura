@@ -5,8 +5,8 @@ A minimal C# multithreaded web crawler
 == Usage
 
 From an user's point of view, what is needed to start the crawler is
-a call to the #crawl method on a Crawler instance. Crawler's constructor 
-takes a Cache instance as a parameter, which in turn requires a starting URL 
+a call to the <tt>#crawl</tt> method on a <tt>Crawler</tt> instance. <tt>Crawler</tt>'s constructor 
+takes a <tt>Cache</tt> instance as a parameter, which in turn requires a starting URL 
 and a target directory to be instantiated.
 
     String targetDirectory = @"C:\tenteikura_cache";
@@ -15,15 +15,15 @@ and a target directory to be instantiated.
     Crawler crawler        = new Crawler(cache);
     crawler.Crawl(startingURL); //starts the crawler at http://www.andreadallera.com
 
-Crawler's constructor takes an optional parameter (bool, default false) which, if true, instructs the 
+<tt>Crawler's constructor takes an optional parameter (<tt>bool</tt>, default <tt>false</tt>) which, if true, instructs the 
 crawler to fetch pages outside the starting URI's domain or not:
 
     new Crawler(cache, true);  //will follow urls outside the starting URI's domain
     new Crawler(cache, false); //will fetch only pages inside the starting URI's domain
     new Crawler(cache);        //same as above
 
-This will only keep the downloaded pages in the Cache object, which is an
-IEnumerable<Page>:
+This will only keep the downloaded pages in the <tt>Cache</tt> object, which is an
+<tt>IEnumerable<Page></tt>:
 
     foreach(Page page in cache) 
     {
@@ -38,7 +38,7 @@ IEnumerable<Page>:
         }
     }
 
-The crawler exposes two events - <tt>NewPageFetched</tt> and <tt>WorkComplete</tt>:
+<tt>Crawler</tt> exposes two events - <tt>NewPageFetched</tt> and <tt>WorkComplete</tt>:
 
     //fired when a valid page not in cache is downloaded    
     crawler.NewPageFetched += (page) {
@@ -50,28 +50,28 @@ The crawler exposes two events - <tt>NewPageFetched</tt> and <tt>WorkComplete</t
     };
 
 If you want to persist the fetched pages, a very rudimental file system 
-backed storage option is available, via the Persister class:
+backed storage option is available, via the <tt>Persister</tt> class:
 
     Persister persister = new Persister(targetDirectory, startingURL);
     crawler.NewPageFetched += (page) {
         persister.save(page);
     };
 
-The persister will save the page, in a subdirectory of targetDirectory 
-named after startingURL.Authority, as two files: one file, with filename page.Hash + ".link", 
-contains the page's absolute URI and the other, with filename page.Hash, 
+<tt>Persister</tt> will save the page, in a subdirectory of <tt>targetDirectory</tt>
+named after <tt>startingURL.Authority</tt>, as two files: one file, with filename <tt>page.Hash + ".link"</tt>, 
+contains the page's absolute URI and the other, with filename <tt>page.Hash</tt>, 
 contains the page itself in full.
 
 There is an example console application on Tenteikura.Example.
 
 == TO DO
 
-There's an hard dependency between Cache and Persister at the moment: Cache expects 
-pages from the targetDirectory + startingUri path to be in the same format as the 
-ones saved from Persister, while the loading strategy should be injected (and ideally 
-provided by Persister itself).
+There's an hard dependency between <tt>Cache</tt> and <tt>Persister</tt> at the moment: <tt>Cache</tt> expects 
+pages from the <tt>targetDirectory + startingUri.Authority</tt> path to be in the same format as the 
+ones saved from <tt>Persister</tt>, while the loading strategy should be injected (and ideally 
+provided by <tt>Persister</tt> itself).
 
-The persister should use a more effective storage strategy - maybe backed by a 
+<tt>Persister</tt> should use a more effective storage strategy - maybe backed by a 
 RDMS or a documental storage.
 
 The pages are fetched in random order, so there is no traversal priority strategy of any kind.
