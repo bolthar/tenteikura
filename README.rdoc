@@ -9,9 +9,9 @@ a call to the #crawl method on a Crawler instance. Crawler's constructor
 takes a Cache instance as a parameter, which in turn requires a starting URL 
 and a target directory to be instantiated.
 
-    String targetDirectory = @"C:\tenteikura_cache";ù
+    String targetDirectory = @"C:\tenteikura_cache";
     Uri startingURL        = new Uri("http://www.andreadallera.com");
-	Cache cache            = new Cache(startingURL, targetDirectory);
+    Cache cache            = new Cache(startingURL, targetDirectory);
 	Crawler crawler        = new Crawler(cache);
 	crawler.Crawl(startingURL); //starts the crawler at http://www.andreadallera.com
 
