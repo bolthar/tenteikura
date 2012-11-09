@@ -8,7 +8,7 @@ From an user's point of view, what is needed to start the crawler is
 a call to the <tt>#crawl</tt> method on a <tt>Crawler</tt> instance. <tt>Crawler</tt>'s constructor 
 takes a <tt>Cache</tt> instance as a parameter, which in turn requires a starting URL 
 and a target directory to be instantiated.
-```C-sharp
+```csharp
     String targetDirectory = @"C:\tenteikura_cache";
     Uri startingURL        = new Uri("http://www.andreadallera.com");
     Cache cache            = new Cache(startingURL, targetDirectory);
@@ -17,14 +17,14 @@ and a target directory to be instantiated.
 
 <tt>Crawler</tt>'s constructor takes an optional parameter (bool, default <tt>false</tt>) which, if <tt>true</tt>, instructs the 
 crawler to fetch pages outside the starting URI's domain or not:
-
+```csharp
     new Crawler(cache, true);  //will follow urls outside the starting URI's domain
     new Crawler(cache, false); //will fetch only pages inside the starting URI's domain
     new Crawler(cache);        //same as above
 
 This will only keep the downloaded pages in the <tt>Cache</tt> object, which is an
 <tt>IEnumerable<Page></tt>:
-
+```csharp
     foreach(Page page in cache) 
     {
         Console.WriteLine(page.Title);  //page title
@@ -39,7 +39,7 @@ This will only keep the downloaded pages in the <tt>Cache</tt> object, which is 
     }
 
 <tt>Crawler</tt> exposes two events - <tt>NewPageFetched</tt> and <tt>WorkComplete</tt>:
-
+```csharp
     //fired when a valid page not in cache is downloaded    
     crawler.NewPageFetched += (page) {
         //do something with the fetched page
@@ -51,7 +51,7 @@ This will only keep the downloaded pages in the <tt>Cache</tt> object, which is 
 
 If you want to persist the fetched pages, a very rudimental file system 
 backed storage option is available, via the <tt>Persister</tt> class:
-
+```csharp
     Persister persister = new Persister(targetDirectory, startingURL);
     crawler.NewPageFetched += (page) {
         persister.save(page);
