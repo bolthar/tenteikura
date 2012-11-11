@@ -31,11 +31,11 @@ namespace Tenteikura
             String path = Path.Combine(_targetFolder.FullName, page.Hash);
             lock (_lockObject)
             {
-                using (TextWriter writer = new StreamWriter(path + ".link"))
+                using (var writer = new StreamWriter(path + ".link"))
                 {
                     writer.WriteLine(page.Uri.AbsoluteUri);
                 }
-                page.Body.Save(Path.Combine(_targetFolder.FullName, page.Hash));
+                page.Document.Save(Path.Combine(_targetFolder.FullName, page.Hash));
             }
         }
     }

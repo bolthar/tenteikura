@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Net;
 using System.IO;
-using System.Threading;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Tenteikura
@@ -36,7 +32,7 @@ namespace Tenteikura
             {
                 WebRequest request = HttpWebRequest.Create(Uri);
                 WebResponse response = request.GetResponse();
-                using (StreamReader streamReader =
+                using (var streamReader =
                     new StreamReader(response.GetResponseStream()))
                 {
                     DownloadedPage = new Page(streamReader.ReadToEnd(), Uri);
